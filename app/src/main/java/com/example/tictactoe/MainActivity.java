@@ -59,31 +59,31 @@ int[][] mat=new int[3][3];
             TextView tv=(TextView) this.findViewById(R.id.main_winnnig);
             switch (b.getId()) {
                 case R.id.button1:
-                    // do something
+                    mat[0][0]=turn%2;
                     break;
                 case R.id.button2:
-                    // do something
+                    mat[0][1]=turn%2;
                     break;
                 case R.id.button3:
-                    // do something
+                    mat[0][2]=turn%2;
                     break;
                 case R.id.button4:
-                    // do something
+                    mat[1][0]=turn%2;
                     break;
                 case R.id.button5:
-                    // do something
+                    mat[1][1]=turn%2;
                     break;
                 case R.id.button6:
-                    // do something
+                    mat[1][2]=turn%2;
                     break;
                 case R.id.button7:
-                    // do something
+                    mat[2][0]=turn%2;
                     break;
                 case R.id.button8:
-                    // do something
+                    mat[2][1]=turn%2;
                     break;
                 case R.id.button9:
-                    // do something
+                    mat[2][2]=turn%2;
                     break;
 
             }
