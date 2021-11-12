@@ -12,10 +12,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     int turn=0;
-int[][] mat=new int[3][3];
-    @Override
+    int[][] mat={{2, 2, 2}, {2, 2, 2}, {2, 2, 2}};
+    boolean wins=false;
+    char winsC;
+@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -30,10 +35,42 @@ int[][] mat=new int[3][3];
         }
     }
 
-        public boolean checkWin(){
+        public void checkWin(){
+                for(int i=0;i<3;i++){
+                   if(mat[i][0]==0&&mat[i][1]==0&&mat[i][2]==0)
+                   {
+                       wins=true;
+                       winsC= 'o';
+                   }
+                   else if(mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1){
+                       wins=true;
+                       winsC= 'x';
 
+                   }
+                }
+            for(int i=0;i<3;i++){
+                if(mat[0][i]==0&&mat[1][i]==0&&mat[2][i]==0)
+                {
+                    wins=true;
+                    winsC= 'o';
+                }
+                else if(mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1){
 
-                return false;
+                    wins=true;
+                    winsC= 'x';
+
+                }
+            }
+            if(mat[0][0]==0&&mat[1][1]==0&&mat[2][2]==0)
+            {
+                wins=true;
+                winsC= 'o';
+            }
+            else if(mat[0][0]==1&&mat[1][1]==1&&mat[2][2]==1){
+                wins=true;
+                winsC= 'x';
+
+            }
         }
         public void resetGame(){
             String text="button";
@@ -46,6 +83,13 @@ int[][] mat=new int[3][3];
                 bt.setText("Click");
                 bt.setBackgroundResource(0);
                 turn=0;
+                for (int[] a:mat) {
+                    for (int b:a) {
+                            b=2;
+                    }
+                }
+                TextView tv=(TextView) this.findViewById(R.id.main_winnnig);
+                tv.setText("O strat,good luck!");
             }
         }
 
@@ -101,12 +145,19 @@ int[][] mat=new int[3][3];
             b.setText("");
 
             if (turn > 3) {
-               boolean win= checkWin();
-               if(win){
-
-                   resetGame();
-               }
-               if(turn==9){
+               checkWin();
+              if(wins)
+              {
+                  tv.setText("The winner is: "+ winsC+ ",Thank you!");
+                  new android.os.Handler(Looper.getMainLooper()).postDelayed(
+                          new Runnable() {
+                              public void run() {
+                                  resetGame();
+                              }
+                          },
+                          3000);
+              }
+            else if(turn==9&&!wins){
                    Toast.makeText(getApplicationContext(),"Its tie!",Toast.LENGTH_LONG).show();
 
                    new android.os.Handler(Looper.getMainLooper()).postDelayed(
