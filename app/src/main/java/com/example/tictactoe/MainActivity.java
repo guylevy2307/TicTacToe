@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         public void checkWin(){
                 for(int i=0;i<3;i++){
                        if(mat[i][0]==0&&mat[i][1]==0&&mat[i][2]==0|| mat[0][i]==0&&mat[1][i]==0&&mat[2][i]==0
-                       ||mat[0][0]==0&&mat[1][1]==0&&mat[2][2]==0)
+                       ||mat[0][0]==0&&mat[1][1]==0&&mat[2][2]==0||mat[0][2]==0&&mat[1][1]==0&&mat[2][0]==0)
                        {
                            wins=true;
                            winsC= 'o';
                        }
                        else if(mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1||mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1||
-                        mat[0][0]==1&&mat[1][1]==1&&mat[2][2]==1){
+                        mat[0][0]==1&&mat[1][1]==1&&mat[2][2]==1||mat[0][2]==1&&mat[1][1]==1&&mat[2][0]==1){
                            wins=true;
                            winsC= 'x';
 
@@ -60,10 +60,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 bt.setText("Click!");
                 bt.setBackgroundResource(0);
                 turn=0;
-                for (int[] a:mat) {
-                    for (int b:a) {
-                            b=2;
+                for(int z=0;z<3;z++){
+                    for(int q=0;q<3;q++){
+                        mat[q][z]=2;
                     }
+
+
                 }
                 wins=false;
                 winsC= 's';
