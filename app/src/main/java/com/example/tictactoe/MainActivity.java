@@ -27,10 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String text="button";
         for(int i=1;i<10;i++){
           String bText=text.concat(String.valueOf(i));
-            //Log.d("TAG", "onCreate: "+bText);
             int resID = getResources().getIdentifier(bText, "id",getPackageName());
-            //Log.d("TAG", "Find: "+resID);
-          Button bt=(Button) this.findViewById(resID);
+             Button bt=(Button) this.findViewById(resID);
             bt.setOnClickListener(this);
         }
     }
