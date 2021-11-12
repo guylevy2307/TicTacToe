@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             b=2;
                     }
                 }
+                wins=false;
+                winsC= 's';
                 TextView tv=(TextView) this.findViewById(R.id.main_winnnig);
                 tv.setText("O strat,good luck!");
             }
