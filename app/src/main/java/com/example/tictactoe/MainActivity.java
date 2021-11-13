@@ -2,24 +2,19 @@ package com.example.tictactoe;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    int turn=0;
+    Integer turn=0;
     int[][] mat={{2, 2, 2}, {2, 2, 2}, {2, 2, 2}};
     boolean wins=false;
     char winsC;
+    Integer Owin=0,Xwin=0 ;
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +26,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
              Button bt=(Button) this.findViewById(resID);
             bt.setOnClickListener(this);
         }
+    Button btR=(Button) this.findViewById(R.id.resetAll);
+    btR.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            resetGame();
+            resetScore();
+
+        }
+    });
     }
 
         public void checkWin(){
@@ -40,11 +44,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                        {
                            wins=true;
                            winsC= 'o';
+                           Owin++;
+                           TextView tvWin1=(TextView)this.findViewById(R.id.OScore);
+                           tvWin1.setText(Owin.toString());
                        }
-                       else if(mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1||mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1||
+                       else if(mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1||mat[0][i]==1&&mat[1][i]==1&&mat[2][i]==1||
                         mat[0][0]==1&&mat[1][1]==1&&mat[2][2]==1||mat[0][2]==1&&mat[1][1]==1&&mat[2][0]==1){
                            wins=true;
                            winsC= 'x';
+                           Xwin++;
+                           TextView tvWin=(TextView) this.findViewById(R.id.XScore);
+                           tvWin.setText(Xwin.toString());
 
                        }
                 }
@@ -58,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Log.d("TAG", "Find: "+resID);
                 Button bt=(Button) this.findViewById(resID);
                 bt.setText("Click!");
-                bt.setBackgroundResource(0);
+                //bt.setBackgroundResource(0);
+                bt.setBackgroundColor(0x673AB7);
                 turn=0;
                 for(int z=0;z<3;z++){
                     for(int q=0;q<3;q++){
@@ -73,7 +84,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv.setText("O strat,good luck!");
             }
         }
+    public void resetScore(){
+        Owin=0;
+        TextView tvWin1=(TextView) this.findViewById(R.id.OScore);
+        tvWin1.setText(Owin.toString());
+        Xwin=0;
+        TextView tvWin2=(TextView) this.findViewById(R.id.XScore);
+        tvWin2.setText(Xwin.toString());
 
+    }
     @Override
     public void onClick(View v) {
        Button b=(Button) v;
@@ -129,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                checkWin();
               if(wins)
               {
-                  tv.setText("The winner is: "+ winsC+ ",Thank you!");
+                      tv.setText("The winner is: "+ winsC+ ",Thank you! :-)");
                   new android.os.Handler(Looper.getMainLooper()).postDelayed(
                           new Runnable() {
                               public void run() {
