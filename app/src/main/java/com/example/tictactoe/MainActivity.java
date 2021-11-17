@@ -39,27 +39,136 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         public void checkWin(){
                 for(int i=0;i<3;i++){
-                       if(mat[i][0]==0&&mat[i][1]==0&&mat[i][2]==0|| mat[0][i]==0&&mat[1][i]==0&&mat[2][i]==0
-                       ||mat[0][0]==0&&mat[1][1]==0&&mat[2][2]==0||mat[0][2]==0&&mat[1][1]==0&&mat[2][0]==0)
+                       if(mat[i][0]==0&&mat[i][1]==0&&mat[i][2]==0)
                        {
                            wins=true;
                            winsC= 'o';
                            Owin++;
                            TextView tvWin1=(TextView)this.findViewById(R.id.OScore);
                            tvWin1.setText(Owin.toString());
+                            drawLine(i);
+                           break;
                        }
-                       else if(mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1||mat[0][i]==1&&mat[1][i]==1&&mat[2][i]==1||
-                        mat[0][0]==1&&mat[1][1]==1&&mat[2][2]==1||mat[0][2]==1&&mat[1][1]==1&&mat[2][0]==1){
+                       if (mat[0][i]==0&&mat[1][i]==0&&mat[2][i]==0)
+                       {
+                           wins=true;
+                           winsC= 'o';
+                           Owin++;
+                           TextView tvWin1=(TextView)this.findViewById(R.id.OScore);
+                           tvWin1.setText(Owin.toString());
+                           drawCol(i);
+                           break;
+                       }
+
+                       if(mat[0][0]==0&&mat[1][1]==0&&mat[2][2]==0)
+                       {
+                           wins=true;
+                           winsC= 'o';
+                           Owin++;
+                           TextView tvWin1=(TextView)this.findViewById(R.id.OScore);
+                           tvWin1.setText(Owin.toString());
+                           drawLtR();
+                           break;
+                       }
+                       if (mat[0][2]==0&&mat[1][1]==0&&mat[2][0]==0)
+                       {
+                           wins=true;
+                           winsC= 'o';
+                           Owin++;
+                           TextView tvWin1=(TextView)this.findViewById(R.id.OScore);
+                           tvWin1.setText(Owin.toString());
+                           drawRtL();
+                           break;
+                       }
+                        if(mat[i][0]==1&&mat[i][1]==1&&mat[i][2]==1) {
+                            wins=true;
+                            winsC= 'x';
+                            Xwin++;
+                            TextView tvWin=(TextView) this.findViewById(R.id.XScore);
+                            tvWin.setText(Xwin.toString());
+                            drawLine(i);
+                            break;
+                        }
+                        if(mat[0][i]==1&&mat[1][i]==1&&mat[2][i]==1) {
+                            wins=true;
+                            winsC= 'x';
+                            Xwin++;
+                            TextView tvWin=(TextView) this.findViewById(R.id.XScore);
+                            tvWin.setText(Xwin.toString());
+                            drawCol(i);
+                            break;
+                        }
+                        if( mat[0][0]==1&&mat[1][1]==1&&mat[2][2]==1) {
+                            wins=true;
+                            winsC= 'x';
+                            Xwin++;
+                            TextView tvWin=(TextView) this.findViewById(R.id.XScore);
+                            tvWin.setText(Xwin.toString());
+                            drawLtR();
+                            break;
+                        }
+                      if(mat[0][2]==1&&mat[1][1]==1&&mat[2][0]==1){
+
                            wins=true;
                            winsC= 'x';
                            Xwin++;
                            TextView tvWin=(TextView) this.findViewById(R.id.XScore);
                            tvWin.setText(Xwin.toString());
-
-                       }
+                          drawRtL();
+                          break;
+                      }
                 }
         }
-        public void resetGame(){
+
+     void drawLine(int i) {
+         int j=i*3+1;
+         int lim=j+3;
+        String text="button";
+        for(;j<lim;j++){
+            String bText=text.concat(String.valueOf(j));
+            int resID = getResources().getIdentifier(bText, "id",getPackageName());
+            Button bt=(Button) this.findViewById(resID);
+           bt.setText("➙");
+           bt.setTextSize(60);
+        }
+    }
+    public  void drawCol(int i) {
+        i+=1;
+        String text="button";
+        for( int time=0;time<3;i+=3,time++){
+            String bText=text.concat(String.valueOf(i));
+            int resID = getResources().getIdentifier(bText, "id",getPackageName());
+            Button bt=(Button) this.findViewById(resID);
+            bt.setText("↟");
+            bt.setTextSize(50);
+        }
+    }
+    public void drawLtR() {
+        Button bt;
+        bt=(Button) this.findViewById(R.id.button1);
+        bt.setText("➘"  );
+        bt.setTextSize(50);
+        bt=(Button) this.findViewById(R.id.button5);
+        bt.setText("➘"  );
+        bt.setTextSize(50);
+        bt=(Button) this.findViewById(R.id.button9);
+        bt.setText("➘"  );
+        bt.setTextSize(50);
+    }
+    public void drawRtL() {
+        Button bt;
+        bt=(Button) this.findViewById(R.id.button3);
+        bt.setText("➚"  );
+        bt.setTextSize(50);
+        bt=(Button) this.findViewById(R.id.button5);
+        bt.setText("➚"  );
+        bt.setTextSize(50);
+        bt=(Button) this.findViewById(R.id.button8);
+        bt.setText("➚"  );
+        bt.setTextSize(50);
+    }
+
+    public void resetGame(){
             String text="button";
             for(int i=1;i<10;i++){
                 String bText=text.concat(String.valueOf(i));
@@ -68,8 +177,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //Log.d("TAG", "Find: "+resID);
                 Button bt=(Button) this.findViewById(resID);
                 bt.setText("Click!");
-                //bt.setBackgroundResource(0);
-                bt.setBackgroundColor(0x673AB7);
+                bt.setTextSize(20);
+                bt.setBackgroundResource(0);
+                bt.setSelected(false);
                 turn=0;
                 for(int z=0;z<3;z++){
                     for(int q=0;q<3;q++){
@@ -148,7 +258,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                checkWin();
               if(wins)
               {
-                      tv.setText("The winner is: "+ winsC+ ",Thank you! :-)");
+                      tv.setText("The winner is: "+ winsC+ ",Thank you! :-) new round in 3 sec...");
                   new android.os.Handler(Looper.getMainLooper()).postDelayed(
                           new Runnable() {
                               public void run() {
@@ -166,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                    resetGame();
                                }
                            },
-                           2000);
+                           3000);
                }
             }
         }
