@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt=(Button) this.findViewById(R.id.button5);
         bt.setText("➚"  );
         bt.setTextSize(50);
-        bt=(Button) this.findViewById(R.id.button8);
+        bt=(Button) this.findViewById(R.id.button7);
         bt.setText("➚"  );
         bt.setTextSize(50);
     }
@@ -204,81 +204,85 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     @Override
-    public void onClick(View v) {
+    public void onClick(View v)
+    {
        Button b=(Button) v;
-        if(b.getText()==""){
-            Toast.makeText(getApplicationContext(),"Please select another box this one is taken!",Toast.LENGTH_LONG).show();
-        }
-       else {
-            TextView tv=(TextView) this.findViewById(R.id.main_winnnig);
-            switch (b.getId()) {
-                case R.id.button1:
-                    mat[0][0]=turn%2;
-                    break;
-                case R.id.button2:
-                    mat[0][1]=turn%2;
-                    break;
-                case R.id.button3:
-                    mat[0][2]=turn%2;
-                    break;
-                case R.id.button4:
-                    mat[1][0]=turn%2;
-                    break;
-                case R.id.button5:
-                    mat[1][1]=turn%2;
-                    break;
-                case R.id.button6:
-                    mat[1][2]=turn%2;
-                    break;
-                case R.id.button7:
-                    mat[2][0]=turn%2;
-                    break;
-                case R.id.button8:
-                    mat[2][1]=turn%2;
-                    break;
-                case R.id.button9:
-                    mat[2][2]=turn%2;
-                    break;
+       if(!wins){
 
-            }
-            if (turn % 2 == 0)//now "0" play
-                {
-                b.setBackgroundResource(R.drawable.o);
-               tv.setText("X turn");
 
-            } else //turn%0==1 now "x" play
-                {
-                b.setBackgroundResource(R.drawable.x);
-                 tv.setText("O turn");
-            }
-            turn++;
-            b.setText("");
 
-            if (turn > 3) {
-               checkWin();
-              if(wins)
-              {
-                      tv.setText("The winner is: "+ winsC+ ",Thank you! :-) new round in 3 sec...");
-                  new android.os.Handler(Looper.getMainLooper()).postDelayed(
-                          new Runnable() {
-                              public void run() {
-                                  resetGame();
-                              }
-                          },
-                          3000);
-              }
-            else if(turn==9&&!wins){
-                   Toast.makeText(getApplicationContext(),"Its tie!",Toast.LENGTH_LONG).show();
+           if (b.getText() == "") {
+               Toast.makeText(getApplicationContext(), "Please select another box this one is taken!", Toast.LENGTH_LONG).show();
+           } else {
+               TextView tv = (TextView) this.findViewById(R.id.main_winnnig);
+               switch (b.getId()) {
+                   case R.id.button1:
+                       mat[0][0] = turn % 2;
+                       break;
+                   case R.id.button2:
+                       mat[0][1] = turn % 2;
+                       break;
+                   case R.id.button3:
+                       mat[0][2] = turn % 2;
+                       break;
+                   case R.id.button4:
+                       mat[1][0] = turn % 2;
+                       break;
+                   case R.id.button5:
+                       mat[1][1] = turn % 2;
+                       break;
+                   case R.id.button6:
+                       mat[1][2] = turn % 2;
+                       break;
+                   case R.id.button7:
+                       mat[2][0] = turn % 2;
+                       break;
+                   case R.id.button8:
+                       mat[2][1] = turn % 2;
+                       break;
+                   case R.id.button9:
+                       mat[2][2] = turn % 2;
+                       break;
 
-                   new android.os.Handler(Looper.getMainLooper()).postDelayed(
-                           new Runnable() {
-                               public void run() {
-                                   resetGame();
-                               }
-                           },
-                           3000);
                }
-            }
-        }
+               if (turn % 2 == 0)//now "0" play
+               {
+                   b.setBackgroundResource(R.drawable.o);
+                   tv.setText("X turn");
+
+               } else //turn%0==1 now "x" play
+               {
+                   b.setBackgroundResource(R.drawable.x);
+                   tv.setText("O turn");
+               }
+               turn++;
+               b.setText("");
+
+               if (turn > 3) {
+                   checkWin();
+                   if (wins) {
+                       tv.setText("The winner is: " + winsC + ",Thank you! :-) new round in 4 sec...");
+                       new android.os.Handler(Looper.getMainLooper()).postDelayed(
+                               new Runnable() {
+                                   public void run() {
+                                       resetGame();
+                                   }
+                               },
+                               4000);
+                   } else if (turn == 9 && !wins) {
+                       tv.setText("Its tie! :-| new round in 4 sec...");
+
+
+                       new android.os.Handler(Looper.getMainLooper()).postDelayed(
+                               new Runnable() {
+                                   public void run() {
+                                       resetGame();
+                                   }
+                               },
+                               4000);
+                   }
+               }
+           }
+       }
     }
 }
